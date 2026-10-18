@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penny · Aishani Rachakonda</title>
+  <meta name="description" content="Penny: a personal finance agent that plans your month with you and tells you what you can afford right now.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=14">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="nav-name" href="../index.html">Aishani</a>
+      <div class="nav-links">
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#news">News</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Project page: problem → approach → key decisions → results → what's next → links. -->
+  <main class="container case-study">
+
+    <a class="cs-back" href="../index.html#projects">&larr; All projects</a>
+
+    <header class="cs-header">
+      <div class="pj-kicker">Agentic AI &middot; Personal finance</div>
+      <h1>Penny</h1>
+      <p class="cs-lede">
+        A personal finance agent that keeps track of every bill and subscription, plans your
+        month with you, and tells you, in the moment, how much you can actually afford.
+      </p>
+      <dl class="cs-facts">
+        <div><dt>When</dt><dd>October 2026</dd></div>
+        <div><dt>Deployed on</dt><dd>Google Cloud Run</dd></div>
+        <div><dt>Data</dt><dd>Bank accounts through Plaid, shared expenses through Splitwise</dd></div>
+        <div><dt>Stack</dt><dd>Gemini (LiteLLM on Vertex AI), FastAPI, SQLite</dd></div>
+      </dl>
+      <div class="pj-links">
+        <a href="https://penny-ai-pyv3lfglpq-ue.a.run.app" target="_blank" rel="noopener">Live demo (Columbia sign-in) &rarr;</a>
+        <a href="https://github.com/aishani-rachakonda/penny-ai" target="_blank" rel="noopener">GitHub &rarr;</a>
+      </div>
+    </header>
+
+    <!-- ============ PROBLEM ============ -->
+    <section>
+      <h2>The problem</h2>
+      <p>
+        Money is spread everywhere. A paycheck lands in one account and everyday spending comes out
+        of another. Rent is due sometime between the 1st and the 10th, the electric bill changes every
+        month, a roommate covered dinner, and Splitwise says a friend paid you back, but you&rsquo;re
+        not sure they did. Subscriptions renew quietly in the background.
+      </p>
+      <p>
+        Keeping all of that in your head is exhausting, so most people don&rsquo;t. Small purchases
+        slip through because each one is too small to matter, until a month of them adds up to real
+        money. And at the moment it counts, standing at the bar or about to check out, nothing tells
+        you what you can actually afford.
+      </p>
+      <p>
+        Budgeting apps don&rsquo;t fix this. They show charts of what already happened and leave the
+        thinking to you.
+      </p>
+    </section>
+
+    <!-- ============ APPROACH ============ -->
+    <section>
+      <h2>The approach</h2>
+      <p>
+        Penny is the one place that does the thinking for you. You just ask, in your own words:
+      </p>
+
+      <blockquote class="cs-quote">
+        <p>&ldquo;I&rsquo;m going out for drinks tonight. How much can I spend?&rdquo;</p>
+        <p>&ldquo;Splitwise says Priya paid me back. Did she actually?&rdquo;</p>
+        <p>&ldquo;Let&rsquo;s plan October.&rdquo;</p>
+      </blockquote>
+
+      <ol class="flow" aria-label="Penny architecture">
+        <li class="flow-node"><span class="flow-step">1</span><strong>Sync your data</strong><span>Bank accounts (Plaid) and Splitwise</span></li>
+        <li class="flow-node"><span class="flow-step">2</span><strong>Make sense of it</strong><span>Link transfers and splits, detect recurring payments</span></li>
+        <li class="flow-node"><span class="flow-step">3</span><strong>Understand the question</strong><span>Gemini chooses from 14 tools</span></li>
+        <li class="flow-node"><span class="flow-step">4</span><strong>Compute the answer</strong><span>Deterministic finance engine</span></li>
+      </ol>
+
+      <p>
+        An <strong>ingestion pipeline</strong> pulls in bank transactions and shared expenses, links
+        transfers between your own accounts, matches Splitwise settle-ups to real deposits, and
+        detects bills, subscriptions, and paychecks on its own. When you ask a question,
+        <strong>Gemini</strong> decides which tools to call, and a <strong>finance engine</strong>
+        written in plain Python computes every number: budgets, recommendations, shared balances,
+        and what-if checks for planned purchases. Every tool call is shown alongside the answer.
+      </p>
+    </section>
+
+    <!-- ============ KEY DECISIONS ============ -->
+    <section>
+      <h2>Key decisions</h2>
+      <div class="cs-decisions">
+        <article>
+          <h3>Never let the model do math</h3>
+          <p>
+            Language models are fluent with numbers they&rsquo;ve never checked, and in finance that&rsquo;s
+            unacceptable. Gemini never computes anything: it chooses tools and explains what they
+            return. Tools hand back totals already added up, and the system prompt forbids stating a
+            number no tool produced.
+          </p>
+        </article>
+        <article>
+          <h3>Find what the user never said</h3>
+          <p>
+            Penny only needs two facts from you: your rent and your monthly limit. It detects the rest,
+            including subscriptions, utility shares, paycheck schedules, price increases, and memberships
+            that stopped charging. Facts you give it outrank its guesses, and every bill is labeled
+            <em>Added by you</em> or <em>Found by Penny</em>.
+          </p>
+        </article>
+        <article>
+          <h3>A budget that bends instead of breaking</h3>
+          <p>
+            Overspend on one category and a normal budget just turns red. Penny rebalances: bills come
+            off the top, and what&rsquo;s left is shared across categories in proportion to their
+            remaining room, so the month still fits. That&rsquo;s why &ldquo;how much can I spend
+            tonight?&rdquo; changes as the month goes on, and Penny can explain exactly why.
+          </p>
+        </article>
+        <article>
+          <h3>Cross-check every source</h3>
+          <p>
+            Splitwise and the bank often disagree. Penny matches each settle-up to a real deposit, so it
+            can tell <em>recorded</em> from <em>received</em>: &ldquo;Splitwise says Priya paid you, but
+            the money never arrived.&rdquo; It also counts only your share of anything split.
+          </p>
+        </article>
+        <article>
+          <h3>Build for the way real data arrives</h3>
+          <p>
+            Bank data follows Plaid&rsquo;s exact format, from cursor-based sync to pending charges that
+            post a day later, and shared expenses follow Splitwise&rsquo;s. The demo swaps out only the
+            network call; everything after it is the production code path.
+          </p>
+        </article>
+        <article>
+          <h3>Ask before assuming</h3>
+          <p>
+            Plans are drafted from what you said, what Penny detected, and your history, then saved only
+            once you agree. When a purchase fits no existing category, Penny suggests a new one and asks
+            before creating it.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS ============ -->
+    <section>
+      <h2>Results</h2>
+      <p>
+        The demo runs on Maya, a fictional grad student in New York with two bank accounts, roommates
+        and friends on Splitwise, and a $2,925 monthly limit. Given only her rent and that limit, Penny
+        found on its own:
+      </p>
+      <ul class="cs-next">
+        <li>Her subscriptions (Spotify, Hulu, iCloud) and her phone plan</li>
+        <li>Her share of the electric and internet bills</li>
+        <li>Her paycheck schedule</li>
+        <li>Spotify&rsquo;s price increase</li>
+        <li>A gym membership that stopped charging in June</li>
+      </ul>
+      <p>
+        Detection re-runs on every sync, so what Penny knows always matches the data. The pipeline,
+        detection, budget logic, and tools are covered by automated tests.
+      </p>
+    </section>
+
+    <!-- ============ NEXT ============ -->
+    <section>
+      <h2>What I&rsquo;d do next</h2>
+      <ul class="cs-next">
+        <li><strong>Connect real accounts.</strong> Plaid Link with webhook-driven sync, and Splitwise through OAuth.</li>
+        <li><strong>Move to a multi-user database.</strong> Postgres with a user on every row and encrypted tokens, in place of a SQLite file per session.</li>
+        <li><strong>Remember across sessions.</strong> Make goals and preferences persistent per user.</li>
+        <li><strong>Send reminders.</strong> Run the existing reminder rules as a scheduled job, delivered by push or email.</li>
+      </ul>
+    </section>
+
+    <nav class="cs-footer-nav">
+      <a href="../index.html#projects">&larr; All projects</a>
+      <a href="https://github.com/aishani-rachakonda/penny-ai" target="_blank" rel="noopener">View the code on GitHub &rarr;</a>
+    </nav>
+
+  </main>
+
+  <footer class="footer">
+    &copy; <span id="year">2026</span> Aishani Rachakonda
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

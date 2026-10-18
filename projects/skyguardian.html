@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkyGuardian · Aishani Rachakonda</title>
+  <meta name="description" content="SkyGuardian: real-time survivor detection and scene briefings from drone footage for disaster response teams.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=14">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="nav-name" href="../index.html">Aishani</a>
+      <div class="nav-links">
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#news">News</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Case-study template: problem → approach → key decisions → results → what's next → links.
+       Copy this file to add another project. -->
+  <main class="container case-study">
+
+    <a class="cs-back" href="../index.html#projects">&larr; All projects</a>
+
+    <header class="cs-header">
+      <div class="pj-kicker">Computer vision &middot; Disaster response</div>
+      <h1>SkyGuardian</h1>
+      <p class="cs-lede">
+        Real-time survivor detection from drone footage that briefs response teams on the
+        terrain, hazards, and survivors ahead, before they arrive.
+      </p>
+      <dl class="cs-facts">
+        <div><dt>When</dt><dd>February 2026</dd></div>
+        <div><dt>Context</dt><dd>Submitted to the Snapdragon Multiverse Hackathon, Columbia University</dd></div>
+        <div><dt>Team</dt><dd>Aishani Rachakonda, Darief Maes, Irene Nguyen, Vivek Iyer</dd></div>
+        <div><dt>Stack</dt><dd>RF-DETR, Qwen3-VL, ONNX Runtime, TFLite, FastAPI, React</dd></div>
+      </dl>
+      <div class="pj-links">
+        <a href="https://github.com/aishani-rachakonda/SkyGuardian-Disaster-Response" target="_blank" rel="noopener">GitHub &rarr;</a>
+      </div>
+    </header>
+
+    <!-- ============ PROBLEM ============ -->
+    <section>
+      <h2>The problem</h2>
+      <p>
+        When disaster strikes, response teams usually know <em>where</em> to go. What they don&rsquo;t
+        know is what they&rsquo;ll find on the way there, or when they arrive.
+      </p>
+      <p>
+        Without aerial footage, a team heads out with almost no picture of the ground: how many
+        survivors are waiting, which roads are still passable, what is blocking them. So teams get
+        stuck en route, running into rubble, collapsed roads, flooding, and other hazards nobody
+        warned them about, and lose time that survivors may not have.
+      </p>
+      <p>
+        Drones can see all of this, but raw footage doesn&rsquo;t help a team that is already on the
+        road. Someone has to watch it, find the people in it, and turn it into something a
+        responder can act on in seconds. And off-the-shelf detectors struggle here: they learned
+        what people look like from eye level, not from directly above.
+      </p>
+    </section>
+
+    <!-- ============ APPROACH ============ -->
+    <section>
+      <h2>The approach</h2>
+      <p>
+        SkyGuardian turns aerial footage into a short briefing for the teams on their way:
+        relevant images plus a concise summary of the scene.
+      </p>
+
+      <blockquote class="cs-quote">
+        <p><strong>Survivors:</strong> an estimated 4 people beside a partially collapsed two-story building</p>
+        <p><strong>Obstacles:</strong> fallen debris blocks the main road from the north; downed power lines along the east side</p>
+        <p><strong>Approach:</strong> the side street to the west appears clear; keep away from the leaning wall on the north face</p>
+      </blockquote>
+
+      <ol class="flow" aria-label="SkyGuardian pipeline">
+        <li class="flow-node"><span class="flow-step">1</span><strong>Drone video</strong><span>Uploaded to a FastAPI server</span></li>
+        <li class="flow-node"><span class="flow-step">2</span><strong>Detect survivors</strong><span>Fine-tuned RF-DETR on every <em>N</em>th frame</span></li>
+        <li class="flow-node"><span class="flow-step">3</span><strong>Summarize the scene</strong><span>Qwen3-VL, once people stay in view for ~1 s</span></li>
+        <li class="flow-node"><span class="flow-step">4</span><strong>Brief the team</strong><span>Operator dashboard &rarr; rescuer app</span></li>
+      </ol>
+
+      <p>
+        The server streams annotated frames to an <strong>operator dashboard</strong> over WebSockets.
+        When people are detected, a vision-language model returns a structured briefing: an
+        estimated survivor count, a summary, the obstacles rescuers may face, and guidance on how
+        to approach. The operator relays what matters to a <strong>rescuer app</strong>, which
+        shares each rescuer&rsquo;s location back every five seconds.
+      </p>
+      <p>
+        The detector runs behind one interface with three interchangeable backends: a
+        <strong>Snapdragon NPU</strong> (TFLite through Qualcomm AI Hub), <strong>ONNX Runtime</strong>
+        (preferring Qualcomm&rsquo;s QNN provider, then CUDA, then CPU), or the plain
+        <strong>RF-DETR</strong> Python package.
+      </p>
+    </section>
+
+    <!-- ============ KEY DECISIONS ============ -->
+    <section>
+      <h2>Key decisions</h2>
+      <div class="cs-decisions">
+        <article>
+          <h3>Fine-tune instead of slicing</h3>
+          <p>
+            The stock COCO-trained RF-DETR scored <strong>0.00 mAP@50</strong> on the Heridal aerial
+            search-and-rescue dataset. Auditing its predictions on just 20 images showed why: it
+            labeled what it saw as <em>chair</em> 1,461 times. Slicing images into tiles with SAHI,
+            the usual fix for small objects, only reached 0.05, because the problem was how the model
+            understood a person seen from above, not object size. Fine-tuning on Heridal fixed it.
+          </p>
+        </article>
+        <article>
+          <h3>Analyze only when it matters</h3>
+          <p>
+            Vision-language models are slow and expensive next to a detector. Rather than run one on
+            every frame, SkyGuardian calls it only after people have been in view for about a second,
+            then waits 10 seconds before calling it again. The detector does the constant work; the
+            language model is saved for moments where context changes a decision.
+          </p>
+        </article>
+        <article>
+          <h3>One detector, many kinds of hardware</h3>
+          <p>
+            Disaster sites rarely have reliable connectivity. Keeping the detector behind a common
+            interface let the same pipeline run on a Snapdragon NPU, a laptop GPU, or a plain CPU,
+            switched with a single environment variable.
+          </p>
+        </article>
+        <article>
+          <h3>Separate apps for separate jobs</h3>
+          <p>
+            The operator needs the full picture: video, analysis, map. A rescuer on the ground needs
+            short alerts and nothing else. Two focused apps sharing one WebSocket server kept each
+            one simple.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS ============ -->
+    <section>
+      <h2>Results</h2>
+      <p>Person detection on the Heridal aerial search-and-rescue dataset:</p>
+      <table class="cs-table">
+        <thead>
+          <tr><th>Model</th><th>mAP@50</th><th>mAP@50:95</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>RF-DETR, COCO weights</td><td>0.000</td><td>0.000</td></tr>
+          <tr><td>RF-DETR, COCO weights + SAHI slicing</td><td>0.054</td><td>0.019</td></tr>
+          <tr class="cs-best"><td>RF-DETR, fine-tuned on Heridal</td><td>0.679</td><td>0.242</td></tr>
+        </tbody>
+      </table>
+      <p class="meta">A confidence threshold of 0.30&ndash;0.35 works well for live video.</p>
+    </section>
+
+    <!-- ============ NEXT ============ -->
+    <section>
+      <h2>What I&rsquo;d do next</h2>
+      <ul class="cs-next">
+        <li><strong>Measure the briefings.</strong> Compare the model&rsquo;s scene summaries against human-written descriptions to catch counts or hazards it gets wrong.</li>
+        <li><strong>Benchmark on-device, end to end.</strong> Time the full pipeline, from frame to briefing, on a Snapdragon device rather than component by component.</li>
+        <li><strong>Stream live.</strong> Accept a live drone feed instead of uploaded video.</li>
+        <li><strong>Put survivors on the map.</strong> Use drone GPS telemetry to place detections on the operator&rsquo;s map.</li>
+      </ul>
+    </section>
+
+    <nav class="cs-footer-nav">
+      <a href="../index.html#projects">&larr; All projects</a>
+      <a href="https://github.com/aishani-rachakonda/SkyGuardian-Disaster-Response" target="_blank" rel="noopener">View the code on GitHub &rarr;</a>
+    </nav>
+
+  </main>
+
+  <footer class="footer">
+    &copy; <span id="year">2026</span> Aishani Rachakonda
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

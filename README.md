@@ -4,10 +4,9 @@ My personal portfolio website, built with plain HTML and CSS and hosted on GitHu
 
 ```
 index.html                         ← main page content (edit this to update the site)
-resume.html                        ← resume page (shows the PDF; no need to edit)
+projects/                          ← one page per featured project
 style.css                          ← colors, fonts, layout
-assets/Aishani_Rachakonda_Resume.pdf
-assets/img/profile.jpg             ← your photo (add this)
+assets/img/profile.jpg             ← your photo
 ```
 
 ## Preview locally
@@ -59,11 +58,9 @@ GitHub Pages redeploys automatically within a minute or two.
 - **Add a news item:** copy one `<li>` in the News section of `index.html` and put it at the top.
 - **Add a project:** copy one `<article class="project">` block and edit it. Replace the
   `GitHub →` link with the repository URL.
-- **Update the resume:** replace `assets/Aishani_Rachakonda_Resume.pdf` with the new file
-  (keep the same name). The resume page picks it up automatically.
 - **Add a role:** copy one `<article class="role">` block in the Experience section.
 - **Add or change your photo:** save a square image as `assets/img/profile.jpg`
   (around 600×600 px). Until it's there, the page shows "AR" initials instead.
 - **Change colors or fonts:** edit the variables at the top of `style.css`. After editing
-  `style.css`, bump the `?v=2` in the stylesheet link in `index.html` and `resume.html` (to `?v=3`, etc.)
+  `style.css`, bump the `?v=` number in the stylesheet link in every page (`index.html` and `projects/*.html`)
   so browsers load the new version instead of a cached copy.

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=14">
 </head>
 <body>
 
@@ -16,12 +16,9 @@
     <nav class="nav">
       <a class="nav-name" href="#">Aishani</a>
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#news">News</a>
-        <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
-        <a href="#publications">Publications</a>
-        <a href="resume.html">Resume</a>
+        <a href="#experience">Experience</a>
+        <a href="#news">News</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -50,7 +47,6 @@
           <a href="mailto:sr4321@columbia.edu">Email</a>
           <a href="https://www.linkedin.com/in/aishanirachakonda" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://github.com/aishani-rachakonda" target="_blank" rel="noopener">GitHub</a>
-          <a href="resume.html">Resume</a>
         </div>
       </div>
 
@@ -62,24 +58,72 @@
       </div>
     </section>
 
-    <!-- ============ NEWS ============ -->
-    <!-- To add an update, copy one <li> and put the newest at the top. -->
-    <section id="news">
-      <h2>News</h2>
-      <ul class="news">
-        <li>
-          <span class="date">June 2026</span>
-          <span>Wrapped up my first two semesters at Columbia University and began my summer internship at Ceragon Networks as an AI/ML Research Engineer Intern, applying my interests in machine learning and AI to real-world industrial challenges.</span>
-        </li>
-        <li>
-          <span class="date">Aug 2025</span>
-          <span>Officially a Lion! 🦁 Made the move to New York City to begin my M.S. in Data Science at Columbia University.</span>
-        </li>
-        <li>
-          <span class="date">Jan 2025</span>
-          <span>My research paper was published in <em>Computing, Communication and Intelligence</em>, a research volume released by CRC Press, Taylor &amp; Francis Group.</span>
-        </li>
-      </ul>
+    <!-- ============ PROJECTS ============ -->
+    <!-- Featured projects. Each card links to a case-study page in projects/ and to GitHub.
+         To add one, copy an <article class="pj-card"> block. -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="pj-grid">
+
+        <article class="pj-card">
+          <div class="pj-kicker">Agentic AI &middot; Personal finance</div>
+          <h3 class="pj-title">Penny</h3>
+          <p class="pj-hook">
+            A personal finance agent that tracks every account, bill, and shared expense,
+            plans your month with you, and tells you what you can afford right now.
+          </p>
+          <p class="pj-result">Every dollar figure comes from deterministic code, never from the language model.</p>
+          <ul class="chips"><li>Gemini</li><li>Tool calling</li><li>FastAPI</li><li>Plaid</li><li>Splitwise</li></ul>
+          <div class="pj-links">
+            <a href="projects/penny.html">Read &rarr;</a>
+            <a href="https://github.com/aishani-rachakonda/penny-ai" target="_blank" rel="noopener">GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="pj-card">
+          <div class="pj-kicker">Computer vision &middot; Disaster response</div>
+          <h3 class="pj-title">SkyGuardian</h3>
+          <p class="pj-hook">
+            Real-time survivor detection from drone footage that sends response teams images
+            and a concise scene briefing before they arrive.
+          </p>
+          <p class="pj-result">Fine-tuning lifted aerial person detection from 0.00 to 0.68 mAP@50.</p>
+          <ul class="chips"><li>RF-DETR</li><li>Qwen3-VL</li><li>ONNX</li><li>Snapdragon NPU</li></ul>
+          <div class="pj-links">
+            <a href="projects/skyguardian.html">Read &rarr;</a>
+            <a href="https://github.com/aishani-rachakonda/SkyGuardian-Disaster-Response" target="_blank" rel="noopener">GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="pj-card">
+          <div class="pj-kicker">LLM evaluation &middot; With IBM Research</div>
+          <h3 class="pj-title">Hallucination Detection for Multi-Agent LLMs</h3>
+          <p class="pj-hook">
+            Trajectory-level detection of when multi-agent LLM workflows go wrong mid-trace, with a new
+            dataset of expert-annotated agent trajectories.
+          </p>
+          <p class="pj-result">225 annotated trajectories across a five-type hallucination taxonomy.</p>
+          <ul class="chips"><li>LLM-as-a-judge</li><li>BERT / NLI</li><li>Longformer</li><li>AssetOpsBench</li></ul>
+          <div class="pj-links">
+            <a href="https://github.com/aishani-rachakonda/AssetOpsBench-Hallucination-Detection" target="_blank" rel="noopener">GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="pj-card">
+          <div class="pj-kicker">ML systems &middot; Performance</div>
+          <h3 class="pj-title">Inference Optimization for Multi-Agent Systems</h3>
+          <p class="pj-hook">
+            A profiling framework that measures where a multi-agent industrial system spends its
+            time, tokens, and tool calls, as groundwork for making it faster.
+          </p>
+          <p class="pj-result">20 industrial scenarios profiled across two orchestration styles.</p>
+          <ul class="chips"><li>Profiling</li><li>MCP</li><li>LiteLLM</li><li>Weights &amp; Biases</li></ul>
+          <div class="pj-links">
+            <a href="https://github.com/aishani-rachakonda/AssetOpsBench-Inference-Optimization" target="_blank" rel="noopener">GitHub &rarr;</a>
+          </div>
+        </article>
+
+      </div>
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
@@ -106,13 +150,9 @@
               </div>
             </header>
             <p>
-              I'm building the recommendation engine behind PerformaMatch, a platform that
-              helps performing artists find auditions and masterclasses. The hard part is
-              cold start: most artists and opportunities have little or no interaction
-              history. So I represent both as embeddings in a shared space and match them
-              by meaning rather than by clicks. As people use the platform, I'm adding
-              collaborative filtering on signals like views, saves, and applications, so
-              recommendations get more personal over time.
+              Building the recommendation engine that matches performing artists with auditions
+              and masterclasses, using embeddings to handle cold start and collaborative filtering
+              as interaction data grows.
             </p>
             <ul class="chips">
               <li>Recommender Systems</li><li>Embeddings</li><li>Semantic Search</li><li>Collaborative Filtering</li>
@@ -136,14 +176,9 @@
               </div>
             </header>
             <p>
-              Over the summer I built an agentic AI platform, from early research all the
-              way to a production deployment. Operations teams had huge databases of sensor
-              telemetry, device-health signals, and infrastructure data covering hundreds of
-              industrial assets, and answering a single question could take hours of manual
-              digging. With the platform, they could ask in plain English. Specialized
-              agents found the relevant records, ran the analysis, and returned an answer in
-              seconds. It also gave field crews optimized routes, so they could spend their
-              time on the highest-risk assets instead of sifting through raw data.
+              Took an agentic AI platform from research to production, letting operations teams
+              query large industrial datasets in plain English and get answers in seconds instead
+              of hours.
             </p>
             <ul class="chips">
               <li>Agentic AI</li><li>LLMs</li><li>Tool Use</li><li>Production ML</li>
@@ -248,55 +283,63 @@
       </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
-    <!-- To add a project, copy one <article class="project"> block. -->
-    <section id="projects">
-      <h2>Projects</h2>
-
-      <article class="project">
-        <div class="entry-head">
-          <h3>AssetOpsBench &mdash; Hallucination Detection for Multi-Agent LLMs</h3>
-          <div class="meta">IBM Research &middot; Jan &ndash; May 2026</div>
-        </div>
-        <p>
-          A trajectory-aware evaluation framework for detecting hallucinations in multi-agent
-          LLM systems for industrial IoT workflows, combining tool-output grounding with a
-          structured error taxonomy. Inference optimizations delivered 28&times; faster wall
-          time and 67% lower memory.
-        </p>
-        <p class="tags">LLM Agents &middot; Evaluation &middot; Quantization &middot; PyTorch</p>
-        <!-- TODO: replace with the project's repository URL -->
-        <a class="project-link" href="https://github.com/aishani-rachakonda" target="_blank" rel="noopener">GitHub &rarr;</a>
-      </article>
-
-      <article class="project">
-        <div class="entry-head">
-          <h3>SkyGuardian &mdash; Real-Time Aerial Survivor Detection</h3>
-          <div class="meta">Snapdragon Multiverse Hackathon &middot; Top 3 Finalist &middot; Feb 2026</div>
-        </div>
-        <p>
-          An end-to-end disaster-response pipeline that pairs RF-DETR survivor detection with
-          vision-language scene understanding to send real-time alerts to first responders.
-          Edge optimization with ONNX, quantization, and NPU tuning cut latency 160&times;
-          (8&nbsp;s &rarr; 50&nbsp;ms).
-        </p>
-        <p class="tags">Computer Vision &middot; VLMs &middot; Edge AI &middot; ONNX</p>
-        <!-- TODO: replace with the project's repository URL -->
-        <a class="project-link" href="https://github.com/aishani-rachakonda" target="_blank" rel="noopener">GitHub &rarr;</a>
-      </article>
+    <!-- ============ NEWS ============ -->
+    <!-- To add an update, copy one <li> and put the newest at the top. -->
+    <section id="news">
+      <h2>News</h2>
+      <ul class="news">
+        <li>
+          <span class="date">June 2026</span>
+          <span>Wrapped up my first two semesters at Columbia University and began my summer internship at Ceragon Networks as an AI/ML Research Engineer Intern, applying my interests in machine learning and AI to real-world industrial challenges.</span>
+        </li>
+        <li>
+          <span class="date">Aug 2025</span>
+          <span>Officially a Lion! 🦁 Made the move to New York City to begin my M.S. in Data Science at Columbia University.</span>
+        </li>
+        <li>
+          <span class="date">Jan 2025</span>
+          <span>My research paper was published in <em>Computing, Communication and Intelligence</em>, a research volume released by CRC Press, Taylor &amp; Francis Group.</span>
+        </li>
+      </ul>
     </section>
 
     <!-- ============ PUBLICATIONS ============ -->
+    <!-- Two groups: published work, then manuscripts under review. Copy an <li class="pub"> to add one. -->
     <section id="publications">
       <h2>Publications</h2>
-      <ul class="pubs">
-        <li>
-          <span class="pub-title">Predictive Modelling of Disease-Gene Association through Machine Learning Approaches</span><br>
-          Riyam Patel, <strong>Aishani Rachakonda</strong>, and T. S. Shiny Angel<br>
-          <em>Computing, Communication and Intelligence</em>, CRC Press / Routledge &ndash; Taylor &amp; Francis, 2025.
-          Presented at ICCTCCI-2024.
+
+      <h3 class="pub-group">Published</h3>
+      <ol class="pub-list">
+        <li class="pub">
+          <div class="pub-head">
+            <a class="pub-title" href="https://www.routledge.com/Computing-Communications-and-Intelligence-Proceedings-of-the-International-Conference-on-Cutting-edge-Technology-in-Computing-Communications/Sethi-Sahoo-Tosh-KumarJayasingh-KumarBhoi/p/book/9781032946825" target="_blank" rel="noopener">Predictive Modelling of Disease-Gene Association through Machine Learning Approaches</a>
+            <span class="pub-status">Published</span>
+          </div>
+          <p class="pub-authors">Riyam Patel, <strong>Aishani Rachakonda</strong>, T. S. Shiny Angel</p>
+          <p class="pub-venue">
+            In <em>Computing, Communication and Intelligence</em>, CRC Press (Taylor &amp; Francis), 2025.
+            Proceedings of ICCTCCI-2024.
+          </p>
         </li>
-      </ul>
+      </ol>
+
+      <h3 class="pub-group">Under review</h3>
+      <ol class="pub-list">
+        <li class="pub">
+          <div class="pub-head">
+            <span class="pub-title">What the Judge Misses: Auditing LLM Hallucination Judges</span>
+            <span class="pub-status pub-status--review">Under review</span>
+          </div>
+          <p class="pub-venue">ACL Rolling Review, 2026.</p>
+        </li>
+        <li class="pub">
+          <div class="pub-head">
+            <span class="pub-title">Beyond Static Leaderboards: Rank-Transfer Stability for LLM Agents</span>
+            <span class="pub-status pub-status--review">Under review</span>
+          </div>
+          <p class="pub-venue">ACL Rolling Review, 2026.</p>
+        </li>
+      </ol>
     </section>
 
     <!-- ============ CONTACT ============ -->
