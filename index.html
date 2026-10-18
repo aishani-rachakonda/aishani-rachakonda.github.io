@@ -7,8 +7,8 @@
   <meta name="description" content="Aishani Rachakonda — Machine Learning Engineer and M.S. Data Science student at Columbia University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
@@ -83,67 +83,142 @@
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
-    <!-- To add a role, copy one <article class="role"> block. Newest goes first. -->
+    <!-- To add a role, copy one <article class="xp-card"> block (inside its <li>). Newest goes first.
+         Logos: save as assets/img/logos/<name>.png (square, ~200x200). Until then, the initials show. -->
     <section id="experience">
       <h2>Experience</h2>
 
-      <article class="role">
-        <div class="role-side">
-          <div class="role-org">PerformaMatch</div>
-          <div class="meta">Sep 2026 &ndash; Present</div>
-        </div>
-        <div class="role-body">
-          <h3>Machine Learning Engineer</h3>
-          <p>
-            I'm building the recommendation engine behind PerformaMatch, a platform that
-            helps performing artists find auditions and masterclasses. The hard part is
-            cold start: most artists and opportunities have little or no interaction
-            history. So I represent both as embeddings in a shared space and match them
-            by meaning rather than by clicks. As people use the platform, I'm adding
-            collaborative filtering on signals like views, saves, and applications, so
-            recommendations get more personal over time.
-          </p>
-          <p class="tags">Recommender Systems &middot; Embeddings &middot; Semantic Search &middot; Collaborative Filtering</p>
-        </div>
-      </article>
+      <ol class="timeline">
+        <li class="timeline-item reveal">
+          <article class="xp-card">
+            <header class="xp-head">
+              <div class="xp-logo">
+                <span>PM</span>
+                <img src="assets/img/logos/performamatch.png" alt="" onerror="this.remove()">
+              </div>
+              <div class="xp-title">
+                <h3>Machine Learning Engineer</h3>
+                <div class="xp-org">PerformaMatch</div>
+              </div>
+              <div class="xp-when">
+                <span class="badge-current">Current</span>
+                <span class="meta">Sep 2026 &ndash; Present</span>
+              </div>
+            </header>
+            <p>
+              I'm building the recommendation engine behind PerformaMatch, a platform that
+              helps performing artists find auditions and masterclasses. The hard part is
+              cold start: most artists and opportunities have little or no interaction
+              history. So I represent both as embeddings in a shared space and match them
+              by meaning rather than by clicks. As people use the platform, I'm adding
+              collaborative filtering on signals like views, saves, and applications, so
+              recommendations get more personal over time.
+            </p>
+            <ul class="chips">
+              <li>Recommender Systems</li><li>Embeddings</li><li>Semantic Search</li><li>Collaborative Filtering</li>
+            </ul>
+          </article>
+        </li>
 
-      <article class="role">
-        <div class="role-side">
-          <div class="role-org">Ceragon Networks</div>
-          <div class="meta">Summer 2026</div>
-        </div>
-        <div class="role-body">
-          <h3>AI/ML Research Engineer Intern</h3>
-          <p>
-            Over the summer I built an agentic AI platform, from early research all the
-            way to a production deployment. Operations teams had huge databases of sensor
-            telemetry, device-health signals, and infrastructure data covering hundreds of
-            industrial assets, and answering a single question could take hours of manual
-            digging. With the platform, they could ask in plain English. Specialized
-            agents found the relevant records, ran the analysis, and returned an answer in
-            seconds. It also gave field crews optimized routes, so they could spend their
-            time on the highest-risk assets instead of sifting through raw data.
-          </p>
-          <p class="tags">Agentic AI &middot; LLMs &middot; Tool Use &middot; Production ML</p>
-        </div>
-      </article>
+        <li class="timeline-item reveal">
+          <article class="xp-card">
+            <header class="xp-head">
+              <div class="xp-logo xp-logo--wide">
+                <span>C</span>
+                <img src="assets/img/logos/ceragon.png" alt="" onerror="this.remove()">
+              </div>
+              <div class="xp-title">
+                <h3>AI/ML Research Engineer Intern</h3>
+                <div class="xp-org">Ceragon Networks</div>
+              </div>
+              <div class="xp-when">
+                <span class="meta">Summer 2026</span>
+              </div>
+            </header>
+            <p>
+              Over the summer I built an agentic AI platform, from early research all the
+              way to a production deployment. Operations teams had huge databases of sensor
+              telemetry, device-health signals, and infrastructure data covering hundreds of
+              industrial assets, and answering a single question could take hours of manual
+              digging. With the platform, they could ask in plain English. Specialized
+              agents found the relevant records, ran the analysis, and returned an answer in
+              seconds. It also gave field crews optimized routes, so they could spend their
+              time on the highest-risk assets instead of sifting through raw data.
+            </p>
+            <ul class="chips">
+              <li>Agentic AI</li><li>LLMs</li><li>Tool Use</li><li>Production ML</li>
+            </ul>
+          </article>
+        </li>
 
-      <article class="role">
-        <div class="role-side">
-          <div class="role-org">Columbia University</div>
-          <div class="meta">2026 &ndash; Present</div>
-        </div>
-        <div class="role-body">
-          <h3>Teaching Assistant</h3>
-          <p>
-            Teaching is one of my favorite parts of grad school. I'm a TA for
-            <em>Projects in Advanced Machine Learning</em>, where I help student teams take
-            an ML idea from proposal to a working system. I'm also a Course Assistant for
-            <em>Machine Learning for Signals, Information, and Data</em>, and I was a TA for
-            <em>Quantitative Analysis II</em> over the summer.
-          </p>
-        </div>
-      </article>
+        <li class="timeline-item reveal">
+          <article class="xp-card">
+            <header class="xp-head">
+              <div class="xp-logo">
+                <span>CU</span>
+                <img src="assets/img/logos/columbia.png" alt="" onerror="this.remove()">
+              </div>
+              <div class="xp-title">
+                <h3>Teaching Appointments</h3>
+                <div class="xp-org">Columbia University</div>
+              </div>
+              <div class="xp-when">
+                <span class="badge-current">Current</span>
+                <span class="meta">Spring 2026 &ndash; Present</span>
+              </div>
+            </header>
+
+            <!-- One card per appointment, newest first. Copy a <li class="ta-card"> to add one. -->
+            <div class="ta-carousel">
+              <div class="ta-controls" aria-hidden="true">
+                <span class="ta-count">4 appointments</span>
+                <span class="ta-buttons">
+                  <button type="button" class="ta-btn" data-dir="-1" tabindex="-1">&larr;</button>
+                  <button type="button" class="ta-btn" data-dir="1" tabindex="-1">&rarr;</button>
+                </span>
+              </div>
+              <ul class="ta-track" tabindex="0" aria-label="Teaching appointments">
+                <li class="ta-card">
+                  <div class="ta-top"><span class="ta-term">Fall 2026</span><span class="ta-role">Teaching Assistant II</span></div>
+                  <div class="ta-code">QMSS GR5074</div>
+                  <h4 class="ta-course">Projects in Advanced Machine Learning</h4>
+                  <dl class="ta-meta">
+                    <dt>Instructor</dt><dd>Alexander Peterhansl</dd>
+                    <dt>School</dt><dd>Graduate School of Arts and Sciences</dd>
+                  </dl>
+                </li>
+                <li class="ta-card">
+                  <div class="ta-top"><span class="ta-term">Fall 2026</span><span class="ta-role">Course Assistant</span></div>
+                  <div class="ta-code">ELEN E4720</div>
+                  <h4 class="ta-course">Machine Learning for Signals, Information, and Data</h4>
+                  <dl class="ta-meta">
+                    <dt>Instructor</dt><dd>John W. Paisley</dd>
+                    <dt>School</dt><dd>School of Engineering and Applied Science, Department of Electrical Engineering</dd>
+                  </dl>
+                </li>
+                <li class="ta-card">
+                  <div class="ta-top"><span class="ta-term">Summer 2026</span><span class="ta-role">Teaching Assistant II</span></div>
+                  <div class="ta-code">SIPA IA6501</div>
+                  <h4 class="ta-course">Quantitative Analysis II</h4>
+                  <dl class="ta-meta">
+                    <dt>Instructor</dt><dd>Sharyn L. O&rsquo;Halloran</dd>
+                    <dt>School</dt><dd>School of International and Public Affairs</dd>
+                  </dl>
+                </li>
+                <li class="ta-card">
+                  <div class="ta-top"><span class="ta-term">Spring 2026</span><span class="ta-role">Teaching Assistant II</span></div>
+                  <div class="ta-code">QMSS GR5074</div>
+                  <h4 class="ta-course">Projects in Advanced Machine Learning</h4>
+                  <dl class="ta-meta">
+                    <dt>Instructor</dt><dd>Alexander Peterhansl</dd>
+                    <dt>School</dt><dd>Graduate School of Arts and Sciences</dd>
+                  </dl>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </li>
+      </ol>
     </section>
 
     <!-- ============ EDUCATION ============ -->
@@ -242,6 +317,37 @@
     &copy; <span id="year">2026</span> Aishani Rachakonda
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Fade cards in as they scroll into view.
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      items.forEach((el) => io.observe(el));
+    }
+
+    // Teaching appointments: arrow buttons scroll the card track.
+    document.querySelectorAll('.ta-carousel').forEach((c) => {
+      const track = c.querySelector('.ta-track');
+      const [prev, next] = c.querySelectorAll('.ta-btn');
+      const step = () => track.querySelector('.ta-card').offsetWidth + 16;
+      const update = () => {
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+        c.classList.toggle('no-scroll', track.scrollWidth <= track.clientWidth + 2);
+      };
+      prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
+  </script>
 </body>
 </html>
