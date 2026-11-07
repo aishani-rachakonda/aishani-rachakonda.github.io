@@ -53,12 +53,12 @@ strong { font-weight: 600; }
   padding: 0 1.25rem;
 }
 
-section { padding: 2.5rem 0 1rem; }
+section { padding: 4.5rem 0 1rem; }
 
 h2 {
-  font-size: 1.9rem;
-  margin: 0 0 1.25rem;
-  padding-bottom: 0.35rem;
+  font-size: 2.15rem;
+  margin: 0 0 1.75rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--rule);
   display: flex;
   justify-content: space-between;
@@ -104,10 +104,10 @@ h3 { font-size: 1.3rem; margin: 1.75rem 0 0.75rem; }
   grid-template-columns: 1fr 210px;
   gap: 2.5rem;
   align-items: start;
-  padding-top: 3.5rem;
+  padding-top: 5.5rem;
 }
 
-.about h1 { font-size: 2.6rem; margin: 0 0 1.25rem; }
+.about h1 { font-size: 3.6rem; line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 1.75rem; }
 
 .about-photo img,
 .photo-placeholder {
@@ -449,6 +449,7 @@ h3 { font-size: 1.3rem; margin: 1.75rem 0 0.75rem; }
   gap: 1.25rem;
 }
 .pj-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1.4rem 1.5rem 1.3rem;
@@ -465,6 +466,11 @@ h3 { font-size: 1.3rem; margin: 1.75rem 0 0.75rem; }
 .pj-card .chips { margin: 0 0 1rem; }
 .pj-links { margin-top: auto; display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; }
 .pj-links a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+/* The primary link's hit area covers the whole card; other links stay on top. */
+.pj-card .pj-primary::after { content: ""; position: absolute; inset: 0; }
+.pj-card .pj-links a:not(.pj-primary) { position: relative; z-index: 1; }
+.pj-card .pj-primary:focus-visible { outline: none; }
+.pj-card:has(.pj-primary:focus-visible) { border-color: var(--text); box-shadow: var(--shadow-hover); }
 
 /* ---------- Case-study pages ---------- */
 .case-study { padding-top: 2rem; }
@@ -472,7 +478,7 @@ h3 { font-size: 1.3rem; margin: 1.75rem 0 0.75rem; }
 .cs-back:hover { color: var(--text); }
 
 .cs-header { padding: 1.5rem 0 1.5rem; border-bottom: 1px solid var(--rule); }
-.cs-header h1 { font-size: 2.8rem; margin: 0.2rem 0 0.5rem; }
+.cs-header h1 { font-size: 3.6rem; line-height: 1.05; letter-spacing: -0.01em; margin: 0.3rem 0 0.75rem; }
 .cs-lede { font-size: 1.2rem; line-height: 1.5; margin: 0 0 1.4rem; }
 .cs-facts {
   display: grid;
@@ -594,7 +600,7 @@ a.pub-title { text-decoration: underline; text-underline-offset: 3px; text-decor
 /* ---------- Footer ---------- */
 .footer {
   max-width: var(--width);
-  margin: 3rem auto 0;
+  margin: 5rem auto 0;
   padding: 1.5rem 1.25rem 2.5rem;
   border-top: 1px solid var(--rule);
   color: var(--muted);
@@ -612,7 +618,8 @@ a.pub-title { text-decoration: underline; text-underline-offset: 3px; text-decor
   .about-photo { order: -1; }
   .about-photo img, .photo-placeholder { width: 160px; }
   .photo-placeholder { font-size: 2.5rem; }
-  .about h1 { font-size: 2rem; }
+  .about h1 { font-size: 2.75rem; }
+  section { padding-top: 3.25rem; }
   .news li, .contact-list li { grid-template-columns: 1fr; gap: 0; }
   .timeline { padding-left: 1.4rem; }
   .timeline::before { left: 0.25rem; }
@@ -625,7 +632,7 @@ a.pub-title { text-decoration: underline; text-underline-offset: 3px; text-decor
   .edu-grid { grid-template-columns: 1fr; }
   .pj-grid { grid-template-columns: 1fr; }
   .pub-head { flex-direction: column; gap: 0.35rem; }
-  .cs-header h1 { font-size: 2.2rem; }
+  .cs-header h1 { font-size: 2.75rem; }
   .cs-facts, .cs-decisions { grid-template-columns: 1fr; }
   .flow { grid-template-columns: 1fr; gap: 1.4rem; }
   .flow-node:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -1.25rem; transform: translateX(-50%); }
@@ -633,3 +640,15 @@ a.pub-title { text-decoration: underline; text-underline-offset: 3px; text-decor
   .ta-top { flex-direction: column; align-items: flex-start; gap: 0.1rem; }
   .ta-role { text-align: left; }
 }
+
+/* ---------- Page transitions and not-found page ---------- */
+@view-transition { navigation: auto; }
+.site-header { view-transition-name: site-header; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.3s; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none; }
+}
+
+.not-found { padding: 7rem 0 3rem; }
+.not-found h1 { font-size: 3.6rem; line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 1rem; }
+.not-found p { margin: 0 0 1.5rem; }

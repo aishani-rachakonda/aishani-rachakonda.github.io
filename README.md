@@ -7,6 +7,8 @@ index.html                         ← main page content (edit this to update th
 projects/                          ← one page per featured project
 style.css                          ← colors, fonts, layout
 assets/img/profile.jpg             ← your photo
+assets/img/brand/                  ← tab icons and the link-share image
+404.html                           ← page shown for broken links
 ```
 
 ## Preview locally
@@ -56,11 +58,11 @@ GitHub Pages redeploys automatically within a minute or two.
 ### Common edits
 
 - **Add a news item:** copy one `<li>` in the News section of `index.html` and put it at the top.
-- **Add a project:** copy one `<article class="project">` block and edit it. Replace the
-  `GitHub →` link with the repository URL.
-- **Add a role:** copy one `<article class="role">` block in the Experience section.
+- **Add a project:** copy one `<article class="pj-card">` block and edit it. The link with
+  `class="pj-primary"` is where a click anywhere on the card goes.
+- **Add a role:** copy one `<li class="timeline-item">` block in the Experience section.
 - **Add or change your photo:** save a square image as `assets/img/profile.jpg`
   (around 600×600 px). Until it's there, the page shows "AR" initials instead.
 - **Change colors or fonts:** edit the variables at the top of `style.css`. After editing
-  `style.css`, bump the `?v=` number in the stylesheet link in every page (`index.html` and `projects/*.html`)
+  `style.css`, bump the `?v=` number in the stylesheet link in every page (`index.html`, `404.html`, and `projects/*.html`)
   so browsers load the new version instead of a cached copy.
